@@ -35,10 +35,15 @@ post '/signup' do
   if @user.persisted?
     session[:user] = @user.id
   end
-  redirect '/'
+  redirect '/search'
 end
 
 get '/signout' do
   session[:user] = nil
   redirect '/'
+end
+
+get '/search' do
+  keyword = params[:keyword]
+  erb :search
 end
