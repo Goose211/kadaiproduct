@@ -8,21 +8,36 @@
 </head>
 
 <body>
-
-<% unless session[:user] %>
+	<% unless session[:user] %>
 	<% redirect '/' %>
-<% else %>
-<a href="/">music SNS!!</a>
-<a href="/home"><img src="http://res.cloudinary.com/dcksv5swp/image/upload/v1550755850/vnast41bpbonmz7udzbd.ico" alt="user_image" width="40" height="40"></a>
-<a href="/search">search</a>
-<a href="/signout">ログアウト</a>
-<% end %>
+	<% else %>
+	<a href="/">music SNS!!</a>
+	<a href="/home">home</a>
+	<a href="/search">search</a>
+	<a href="/signout">ログアウト</>
+	<% end %>
 
-<h2>検索フォーム</h2>
-<form action="/search" method="get">
-<input type="text" name="keyword">
-<input type="submit" value="送信">
-</form>
+	<h1>検索フォーム</h1>
+	<form action="/search" method="post">
+	<input type="text" name="keyword">
+	<input type="submit" value="検索">
+	</form>
+
+	<h2>検索フォーム</h2>
+    <% if !@musics.empty? %>
+			<div>
+        <% @musics.each do |music| %>
+          <div>
+            <img src="<%= music["artworkUrl100"] %>">
+            <p><%= music["artistName"] %></p>
+            <p><%= music["collectionName"] %></p>
+            <p><%= music["trackName"] %></p>
+            <a href="<%= music["previewUrl"] %>">サンプル</a>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      検索結果がありません
+    <% end %>
 </body>
-
 </html>
